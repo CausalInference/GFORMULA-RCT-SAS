@@ -629,6 +629,7 @@ run;
 
 
 %macro createhazard ;
+    /* modified version of createhazard from gformula macro code.  */
     %local firstint secondint intno ;
 
 
@@ -643,7 +644,7 @@ run;
        
 
 
-        %do intno = 0 %to &numint;
+        %do intno = %eval(1-&runnc) %to &numint;
          
             %if  (&forrct = 0 and ( &intno = &firstint or &intno = &secondint)) or &forrct = 1 %then %do;
                 data hazard&intno ;
@@ -867,7 +868,7 @@ run;
         data hrfin ; run;
     %end;
 
-     %do i= (1-&runnc) %to &numint;
+     %do i= %eval(1-&runnc) %to &numint;
       
         data intA_&i ;
         set mysurva ;
@@ -1056,9 +1057,9 @@ run;
      delete   _ref_ fin finfin dataa datab  temp 
          %if &forrct = 1 %then %do ;
                _inthr_  hrfin hrtemp 
-               %do i = 0 %to &numint ; _inthr_rct&i._ hrtemp&i hazard_all_&i._a hazard_all_&i._b %end;
+               %do i = %eval(1-&runnc) %to &numint ; _inthr_rct&i._ hrtemp&i hazard_all_&i._a hazard_all_&i._b %end;
          %end;
-         %do i = 0 %to &numint ; temp&i inta_&i intb_&i %end;
+         %do i = %eval(1-&runnc) %to &numint ; temp&i inta_&i intb_&i %end;
          
          ;        
      
