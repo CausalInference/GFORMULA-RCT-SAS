@@ -697,14 +697,14 @@ run;
      %do i= (1-&runnc) %to &numint;
       
         data intA_&i ;
-        set mysurva ;
+        set &survdat.a ;
         where int = &i ;
         keep risk&timepoints int int2 _sample_ ;
         rename risk&timepoints = riskA int2 = int2_A ;
         run;
 
         data intB_&i ;
-        set mysurvb ;
+        set &survdata.b ;
         where int = &i ;
         keep risk&timepoints int int2 _sample_ ;
         rename risk&timepoints = riskB int2 = int2_B ;
